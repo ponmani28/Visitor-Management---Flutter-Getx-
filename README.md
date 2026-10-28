@@ -4,6 +4,7 @@ A Flutter application for front-desk teams to register visitors, issue QR passes
 
 ## Features
 
+- Demo sign-in page with protected visitor screens and sign-out
 - Dashboard with daily visitor and visit-status metrics
 - Visitor registration, editing, search, and status filtering
 - Visitor details, including visit timestamps and a QR pass
@@ -38,7 +39,9 @@ Grant camera permission when prompted to use the QR scanner.
 
 ## Visitor Data and API
 
-Visitor records are stored by a remote REST API, not only on the device. When the app starts, it requests the visitor list from the API; records therefore remain available after an app restart.
+Visitor records are stored by a remote REST API, not only on the device. After sign-in, the app requests the visitor list from the API; records therefore remain available after an app restart.
+
+The sign-in screen is a UI/demo flow only: any non-empty username and password are accepted. It does not authenticate a user, secure visitor data, or persist a session. Use a real backend authentication flow before deploying the app with sensitive data.
 
 The default configuration points to the NilesLabs Playground API:
 

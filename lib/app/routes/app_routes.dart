@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../data/models/visitor_model.dart';
 
 abstract class Routes {
+  static const login = '/login';
   static const home = '/home';
   static const visitorForm = '/visitor-form';
   static const visitorDetails = '/visitor-details';

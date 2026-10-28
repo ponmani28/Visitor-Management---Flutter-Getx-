@@ -5,6 +5,7 @@ import '../../../core/utils/app_date_formatter.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/widgets/stat_card.dart';
 import '../../../core/widgets/visitor_card.dart';
+import '../../../data/controllers/auth_controller.dart';
 import '../../../data/controllers/visitor_controller.dart';
 import '../../../data/models/visitor_model.dart';
 import '../../../routes/app_routes.dart';
@@ -40,6 +41,10 @@ class DashboardView extends GetView<VisitorController> {
                 _DashboardHeader(
                   greeting: AppDateFormatter.greeting(),
                   dateLabel: AppDateFormatter.longDate(DateTime.now()),
+                  onSignOut: () {
+                    Get.find<AuthController>().signOut();
+                    Get.offAllNamed(Routes.login);
+                  },
                 ),
                 const SizedBox(height: 20),
                 if (controller.isLoading.value && !hasData)
@@ -154,10 +159,15 @@ class DashboardView extends GetView<VisitorController> {
 }
 
 class _DashboardHeader extends StatelessWidget {
-  const _DashboardHeader({required this.greeting, required this.dateLabel});
+  const _DashboardHeader({
+    required this.greeting,
+    required this.dateLabel,
+    required this.onSignOut,
+  });
 
   final String greeting;
   final String dateLabel;
+  final VoidCallback onSignOut;
 
   @override
   Widget build(BuildContext context) {
@@ -201,23 +211,23 @@ class _DashboardHeader extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          width: 46,
-          height: 46,
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest.withValues(
-              alpha: 0.5,
-            ),
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.35),
+        IconButton(
+          onPressed: onSignOut,
+          tooltip: 'Sign out',
+          style: IconButton.styleFrom(
+            fixedSize: const Size(46, 46),
+            backgroundColor: theme.colorScheme.surfaceContainerHighest
+                .withValues(alpha: 0.5),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+              side: BorderSide(
+                color: theme.colorScheme.outlineVariant.withValues(
+                  alpha: 0.35,
+                ),
+              ),
             ),
           ),
-          child: Icon(
-            Icons.apartment_rounded,
-            color: theme.colorScheme.primary,
-            size: 22,
-          ),
+          icon: Icon(Icons.logout_rounded, color: theme.colorScheme.primary),
         ),
       ],
     );

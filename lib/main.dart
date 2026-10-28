@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'app/core/bindings/initial_binding.dart';
 import 'app/core/config/app_config.dart';
 import 'app/core/theme/app_theme.dart';
-import 'app/data/controllers/visitor_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
 
@@ -25,13 +24,8 @@ class VisitorManagementApp extends StatelessWidget {
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
       initialBinding: InitialBinding(),
-      initialRoute: Routes.home,
+      initialRoute: Routes.login,
       getPages: AppPages.routes,
-      onInit: () {
-        if (Get.isRegistered<VisitorController>()) {
-          Get.find<VisitorController>().load();
-        }
-      },
     );
   }
 }
